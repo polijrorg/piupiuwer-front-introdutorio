@@ -1,7 +1,6 @@
 import {
     defaultTheme,
     ColorType,
-    ColorIndex,
     ThemeProps,
     SpaceIndex,
     RadiiIndex
@@ -13,12 +12,8 @@ function getTheme(props: ThemeProps) {
 }
 
 // getColor("primary", 9, { theme }) === "hsl(205, 100%, 21%)"
-export function getColor(
-    type: ColorType,
-    shade: ColorIndex,
-    props: ThemeProps
-) {
-    return getTheme(props).colors[type][shade];
+export function getColor(color: ColorType, props: ThemeProps) {
+    return getTheme(props).colors[color];
 }
 
 // getSpace(2, { theme }) === "12px"
