@@ -1,5 +1,17 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Image from 'next/image';
+
+const appearHeight = keyframes`
+  from {
+    max-height: 0;
+
+  }
+
+  to {
+    max-height: 400px;
+
+  }
+`;
 
 export const Wrapper = styled.div`
     width: 760px;
@@ -13,6 +25,9 @@ export const Wrapper = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     gap: 24px;
+    overflow: hidden;
+
+    animation: ${appearHeight} 3s cubic-bezier(0.16, 0.98, 1, 0.97);
 `;
 
 export const ImageWrapper = styled.div`
@@ -62,8 +77,6 @@ export const HandleText = styled.span`
 `;
 
 export const BottomWrapper = styled.div`
-    width: 100%;
-
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -73,6 +86,9 @@ export const PiuText = styled.p`
     font-family: 'Poppins Regular', sans-serif;
     font-size: 20px;
     color: ${({ theme }) => theme.colors.sky12};
+    max-width: 600px;
+    white-space: initial;
+    word-wrap: break-word;
 `;
 
 export const IconClicker = styled.button`
@@ -106,7 +122,7 @@ export const IconBar = styled.div`
     flex-direction: row;
     gap: 24px;
 
-    &:nth-child(3) {
-        margin-right: auto;
+    & > ${IconClicker} {
+        margin-left: auto;
     }
 `;

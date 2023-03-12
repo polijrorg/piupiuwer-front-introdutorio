@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 
-interface ProfileImageStyledProps {
-    size: string;
-}
+export const ProfileBorder = styled.div`
+    padding: 0;
+    margin: 0;
 
-export const ProfileImage = styled(Image)<ProfileImageStyledProps>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     //para a borda ficar dentro da div(funciona em todos os browsers)
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -13,4 +16,10 @@ export const ProfileImage = styled(Image)<ProfileImageStyledProps>`
 
     border-radius: 50%;
     border: solid 3px ${({ theme }) => theme.colors.sky11};
+`;
+
+export const ProfileImage = styled(Image)`
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
 `;

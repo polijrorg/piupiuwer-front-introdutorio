@@ -10,6 +10,8 @@ interface PiuProps {
     likes: number;
     comments: number;
     time: string;
+    id: number;
+    deletePiu: (piuId: number) => void;
 }
 
 export const Piu: React.FC<PiuProps> = ({
@@ -19,8 +21,14 @@ export const Piu: React.FC<PiuProps> = ({
     text,
     likes,
     comments,
-    time
+    id,
+    time,
+    deletePiu
 }) => {
+    // como ainda não temos o login, usuário logado hardcoded
+
+    const loggedUserHandle = '@caukazama';
+
     const [like, setLike] = useState(false);
     const [likeCounter, setLikeCounter] = useState(likes);
     const [bookmark, setBookmark] = useState(false);
@@ -72,17 +80,29 @@ export const Piu: React.FC<PiuProps> = ({
                             </S.IconClicker>
                             <span>{comments}</span>
                         </S.IconCounterWrapper>
-                        <S.IconClicker onClick={() => setBookmark(!bookmark)}>
-                            <S.Icon
-                                src={
-                                    bookmark
-                                        ? '/assets/icons/FilledBookmark.svg'
-                                        : '/assets/icons/Bookmark.svg'
-                                }
-                                width="32px"
-                                height="32px"
-                            />
-                        </S.IconClicker>
+                        {handle === loggedUserHandle ? (
+                            <S.IconClicker onClick={() => deletePiu(id)}>
+                                <S.Icon
+                                    src="/assets/icons/Trash.svg"
+                                    width="32px"
+                                    height="32px"
+                                />
+                            </S.IconClicker>
+                        ) : (
+                            <S.IconClicker
+                                onClick={() => setBookmark(!bookmark)}
+                            >
+                                <S.Icon
+                                    src={
+                                        bookmark
+                                            ? '/assets/icons/FilledBookmark.svg'
+                                            : '/assets/icons/Bookmark.svg'
+                                    }
+                                    width="32px"
+                                    height="32px"
+                                />
+                            </S.IconClicker>
+                        )}
                     </S.IconBar>
                 </S.BottomWrapper>
             </S.RightWrapper>

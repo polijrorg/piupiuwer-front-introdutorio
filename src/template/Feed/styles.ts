@@ -10,10 +10,33 @@ export const Title = styled.h1`
 export const Container = styled.div`
     display: flex;
     min-height: 100vh;
-    background-color: ${({ theme }) => theme.colors.sky1};
     flex-direction: column;
-    align-items: center;
+    background-color: ${({ theme }) => theme.colors.sky1};
     justify-content: center;
+
+    &::before {
+        content: '';
+        position: fixed;
+        top: 22%;
+        left: -10%;
+        width: 750px;
+        height: 750px;
+        border-radius: 50%;
+        background: radial-gradient(rgba(0, 93, 133, 0.3), transparent 75%);
+        z-index: 0;
+    }
+
+    &::after {
+        content: '';
+        position: fixed;
+        top: 60%;
+        right: -12%;
+        width: 514px;
+        height: 514px;
+        border-radius: 50%;
+        background: radial-gradient(rgba(0, 93, 133, 0.3), transparent 75%);
+        z-index: 0;
+    }
 `;
 
 export const SearchBarWrapper = styled.div`
@@ -32,6 +55,7 @@ export const SearchBarWrapper = styled.div`
 export const MainContainer = styled.div`
     min-height: 100vh;
     padding: 48px 0;
+    margin-left: 400px;
 
     display: flex;
     flex-direction: column;

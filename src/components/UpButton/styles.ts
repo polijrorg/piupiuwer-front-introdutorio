@@ -15,6 +15,9 @@ export const Wrapper = styled.button`
     border-radius: 50%;
 
     background-color: ${({ theme }) => theme.colors.sky11};
+    cursor: pointer;
+
+    z-index: 2;
 `;
 
 export const Icon = styled(Image)``;

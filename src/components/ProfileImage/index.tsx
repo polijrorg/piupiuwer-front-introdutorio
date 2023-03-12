@@ -6,7 +6,11 @@ interface ProfileImageProps {
 }
 
 export const ProfileImage: React.FC<ProfileImageProps> = ({ size, src }) => {
-    return <S.ProfileImage size={size} src={src} width={size} height={size} />;
+    return (
+        <S.ProfileBorder>
+            <S.ProfileImage src={src} width={size} height={size} />
+        </S.ProfileBorder>
+    );
 };
 
 export default ProfileImage;
