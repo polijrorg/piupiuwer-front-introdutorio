@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import TimeAgo from 'javascript-time-ago';
+import pt from 'javascript-time-ago/locale/en';
+
 import ProfileImage from 'components/ProfileImage';
 import * as S from './styles';
 
@@ -9,8 +12,12 @@ interface PiuProps {
     text: string;
     likes: number;
     comments: number;
-    time: string;
+    time: Date;
 }
+
+TimeAgo.addDefaultLocale(pt);
+
+const timeAgo = new TimeAgo('pt');
 
 export const Piu: React.FC<PiuProps> = ({
     name,
@@ -41,7 +48,9 @@ export const Piu: React.FC<PiuProps> = ({
                 <S.TopWrapper>
                     <S.NameWrapper>
                         <S.NameText>{name}</S.NameText>
-                        <S.TimeText>{time}</S.TimeText>
+                        <S.TimeText>
+                            {timeAgo.format(time, 'twitter-now')}
+                        </S.TimeText>
                     </S.NameWrapper>
                     <S.HandleText>{handle}</S.HandleText>
                 </S.TopWrapper>

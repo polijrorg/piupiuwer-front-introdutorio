@@ -1,5 +1,6 @@
-import Piu from 'components/Piu';
 import { useState } from 'react';
+
+import Piu from 'components/Piu';
 import Sidebar from 'components/Sidebar';
 import CreatePiu from 'components/CreatePiu';
 import UpButton from 'components/UpButton';
@@ -15,7 +16,7 @@ const FeedTemplate = () => {
             text: 'Mais uma sexta que passou e eu não fiquei lucio',
             likes: 434,
             comments: 34,
-            time: 'há 2h atrás'
+            time: new Date('12-03-2023')
         }
     ]);
 
@@ -30,7 +31,7 @@ const FeedTemplate = () => {
                 text,
                 likes: 434,
                 comments: 34,
-                time: 'há 2h atrás'
+                time: new Date()
             }
         ]);
     };
