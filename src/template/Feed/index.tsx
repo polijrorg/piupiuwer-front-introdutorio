@@ -23,7 +23,6 @@ const FeedTemplate = () => {
     const createPiu = (text: string) => {
         if (text.length > 140) return;
         setPius((oldArray) => [
-            ...oldArray,
             {
                 name: 'cauan',
                 handle: 'caukazama',
@@ -32,7 +31,8 @@ const FeedTemplate = () => {
                 likes: 434,
                 comments: 34,
                 time: new Date()
-            }
+            },
+            ...oldArray
         ]);
     };
 
