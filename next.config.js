@@ -1,4 +1,5 @@
 const withImages = require('next-images');
+const { createIncrementalProgram } = require('typescript');
 module.exports = {
     webpack(config) {
         withImages();
@@ -8,5 +9,15 @@ module.exports = {
         });
 
         return config;
+    },
+    images: {
+        remotePatterns: [
+            {
+              protocol: 'https',
+              hostname: 'encrypted-tbn0.gstatic.com',
+              port: '',
+              pathname: '/images',
+            },
+          ],
     }
 };

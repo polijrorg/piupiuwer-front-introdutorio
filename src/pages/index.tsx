@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
-import HomeTemplate from 'template/Home';
+import FeedTemplate from 'template/Feed';
 
 const Home: NextPage = () => {
-    return <HomeTemplate />;
+    return <FeedTemplate />;
 };
 
 export default Home;
