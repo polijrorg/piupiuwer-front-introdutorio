@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({
     text
 }) => {
     return (
-        <S.Wrapper onClick={onClick} disabled={disabled}>
+        <S.Wrapper onClick={disabled ? undefined : onClick} disabled={disabled}>
             {text}
         </S.Wrapper>
     );

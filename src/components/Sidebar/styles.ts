@@ -38,6 +38,7 @@ export const MenuItem = styled.div<MenuItemProps>`
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
 
     & > span {
         font-family: ${({ selected }) =>
@@ -46,6 +47,8 @@ export const MenuItem = styled.div<MenuItemProps>`
         font-size: 20px;
     }
 `;
+
+export const PageName = styled.span``;
 
 export const ProfileWrapper = styled.div`
     width: 100%;
@@ -67,4 +70,6 @@ export const ProfileHandle = styled.span`
     margin-bottom: 16px;
 `;
 
-export const Icon = styled(Image)``;
+export const Icon = styled(Image)`
+    cursor: pointer;
+`;

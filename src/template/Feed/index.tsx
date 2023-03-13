@@ -5,31 +5,22 @@ import Sidebar from 'components/Sidebar';
 import CreatePiu from 'components/CreatePiu';
 import UpButton from 'components/UpButton';
 
+import IPiu from 'interfaces/Piu';
+import loggedInUser from 'data/loggedInUser';
+import examplePius from 'data/examplePius';
 import * as S from './styles';
 
 const FeedTemplate = () => {
-    const [pius, setPius] = useState([
-        {
-            name: 'cauan',
-            handle: 'caukazama',
-            image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU',
-            text: 'Mais uma sexta que passou e eu não fiquei lucio',
-            likes: 434,
-            comments: 34,
-            time: new Date('12-03-2023')
-        }
-    ]);
+    const [pius, setPius] = useState<IPiu[]>(examplePius);
+    const [search, setSearch] = useState('');
 
-    const createPiu = (text: string) => {
-        if (text.length > 140) return;
+    const handleCreate = (text: string) => {
         setPius((oldArray) => [
             {
-                name: 'cauan',
-                handle: 'caukazama',
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU',
+                user: loggedInUser,
                 text,
-                likes: 434,
-                comments: 34,
+                likes: 0,
+                comments: 0,
                 time: new Date()
             },
             ...oldArray
@@ -38,7 +29,7 @@ const FeedTemplate = () => {
 
     return (
         <S.Container>
-            <Sidebar />
+            <Sidebar loggedInUser={loggedInUser} />
             <S.MainContainer>
                 <S.Title>Página Principal</S.Title>
                 <S.SearchBarWrapper>
@@ -47,23 +38,28 @@ const FeedTemplate = () => {
                         width="32px"
                         height="32px"
                     />
-                    <S.SearchBarInput placeholder="Buscar no Piupiuwer" />
+                    <S.SearchBarInput
+                        placeholder="Buscar no Piupiuwer"
+                        onChange={(e) =>
+                            setSearch(e.target.value.toLowerCase())
+                        }
+                    />
                 </S.SearchBarWrapper>
                 <CreatePiu
-                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU"
-                    createPiu={createPiu}
+                    image={loggedInUser.image}
+                    handleCreate={handleCreate}
                 />
-                {pius.map((piu) => (
-                    <Piu
-                        name={piu.handle}
-                        handle={piu.name}
-                        image={piu.image}
-                        text={piu.text}
-                        likes={piu.likes}
-                        comments={piu.comments}
-                        time={piu.time}
-                    />
-                ))}
+                {pius
+                    .filter(({ user: { name, handle }, text }) =>
+                        [name, handle, text].reduce(
+                            (acc, cur) =>
+                                acc || cur.toLowerCase().includes(search),
+                            false
+                        )
+                    )
+                    .map((piu) => (
+                        <Piu piu={piu} setPius={setPius} />
+                    ))}
             </S.MainContainer>
             <UpButton />
         </S.Container>

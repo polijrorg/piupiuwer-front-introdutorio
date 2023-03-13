@@ -1,42 +1,41 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import TimeAgo from 'javascript-time-ago';
-import pt from 'javascript-time-ago/locale/en';
+import pt from 'javascript-time-ago/locale/pt';
 
 import ProfileImage from 'components/ProfileImage';
+import IPiu from 'interfaces/Piu';
+import loggedInUser from 'data/loggedInUser';
 import * as S from './styles';
 
 interface PiuProps {
-    name: string;
-    handle: string;
-    image: string;
-    text: string;
-    likes: number;
-    comments: number;
-    time: Date;
+    piu: IPiu;
+    setPius: Dispatch<SetStateAction<IPiu[]>>;
 }
 
 TimeAgo.addDefaultLocale(pt);
 
-const timeAgo = new TimeAgo('pt');
+const timeAgo = new TimeAgo('');
 
 export const Piu: React.FC<PiuProps> = ({
-    name,
-    handle,
-    image,
-    text,
-    likes,
-    comments,
-    time
+    piu: {
+        user: { name, handle, image },
+        text,
+        likes,
+        comments,
+        time
+    },
+    setPius
 }) => {
     const [like, setLike] = useState(false);
-    const [likeCounter, setLikeCounter] = useState(likes);
     const [bookmark, setBookmark] = useState(false);
 
-    const handleLike = () => {
-        if (!like) setLikeCounter(likeCounter + 1);
-        else setLikeCounter(likeCounter - 1);
-
-        setLike(!like);
+    const handleShare = () => {
+        window.open(
+            `whatsapp://send?text=Fowarded Message - PiuPiuwer%0aFrom: ${name} (@${handle})%0a%0a${text.replaceAll(
+                '\n',
+                '%0a'
+            )}`
+        );
     };
 
     return (
@@ -52,24 +51,22 @@ export const Piu: React.FC<PiuProps> = ({
                             {timeAgo.format(time, 'twitter-now')}
                         </S.TimeText>
                     </S.NameWrapper>
-                    <S.HandleText>{handle}</S.HandleText>
+                    <S.HandleText>{`@${handle}`}</S.HandleText>
                 </S.TopWrapper>
                 <S.BottomWrapper>
                     <S.PiuText>{text}</S.PiuText>
                     <S.IconBar>
                         <S.IconCounterWrapper>
-                            <S.IconClicker onClick={handleLike}>
+                            <S.IconClicker onClick={() => setLike(!like)}>
                                 <S.Icon
-                                    src={
-                                        like
-                                            ? '/assets/icons/FilledHeart.svg'
-                                            : '/assets/icons/Heart.svg'
-                                    }
+                                    src={`/assets/icons/${
+                                        like ? 'Filled' : ''
+                                    }Heart.svg`}
                                     width="32px"
                                     height="32px"
                                 />
                             </S.IconClicker>
-                            <span>{likeCounter}</span>
+                            <S.Amount>{likes + (like ? 1 : 0)}</S.Amount>
                         </S.IconCounterWrapper>
                         <S.IconCounterWrapper>
                             <S.IconClicker>
@@ -79,19 +76,45 @@ export const Piu: React.FC<PiuProps> = ({
                                     height="32px"
                                 />
                             </S.IconClicker>
-                            <span>{comments}</span>
+                            <S.Amount>{comments}</S.Amount>
                         </S.IconCounterWrapper>
                         <S.IconClicker onClick={() => setBookmark(!bookmark)}>
                             <S.Icon
-                                src={
-                                    bookmark
-                                        ? '/assets/icons/FilledBookmark.svg'
-                                        : '/assets/icons/Bookmark.svg'
-                                }
+                                src={`/assets/icons/${
+                                    bookmark ? 'Filled' : ''
+                                }Bookmark.svg`}
                                 width="32px"
                                 height="32px"
                             />
                         </S.IconClicker>
+                        {loggedInUser.handle === handle ? (
+                            <S.IconClicker
+                                onClick={() =>
+                                    setPius((pius) =>
+                                        pius.filter(
+                                            (piu) =>
+                                                piu.user.handle !== handle ||
+                                                piu.text !== text ||
+                                                piu.time !== time
+                                        )
+                                    )
+                                }
+                            >
+                                <S.Icon
+                                    src="/assets/icons/Trash.svg"
+                                    width="32px"
+                                    height="32px"
+                                />
+                            </S.IconClicker>
+                        ) : (
+                            <S.IconClicker onClick={() => handleShare()}>
+                                <S.Icon
+                                    src="/assets/icons/Share.svg"
+                                    width="32px"
+                                    height="32px"
+                                />
+                            </S.IconClicker>
+                        )}
                     </S.IconBar>
                 </S.BottomWrapper>
             </S.RightWrapper>

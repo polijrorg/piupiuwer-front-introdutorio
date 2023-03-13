@@ -14,6 +14,8 @@ export const Wrapper = styled.button`
     height: 80px;
     border-radius: 50%;
 
+    cursor: pointer;
+
     background-color: ${({ theme }) => theme.colors.sky11};
 `;
 

@@ -73,6 +73,8 @@ export const PiuText = styled.p`
     font-family: 'Poppins Regular', sans-serif;
     font-size: 20px;
     color: ${({ theme }) => theme.colors.sky12};
+    white-space: pre-line;
+    overflow-wrap: break-word;
 `;
 
 export const IconClicker = styled.button`
@@ -99,12 +101,17 @@ export const IconCounterWrapper = styled.div`
     }
 `;
 
+export const Amount = styled.span`
+    width: 32px;
+`;
+
 export const IconBar = styled.div`
-    width: 100%;
+    width: 60%;
 
     display: flex;
     flex-direction: row;
-    gap: 24px;
+    justify-content: space-between;
+    gap: 32px;
 
     &:nth-child(3) {
         margin-right: auto;
