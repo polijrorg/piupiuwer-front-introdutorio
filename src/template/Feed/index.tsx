@@ -11,19 +11,21 @@ import examplePius from 'data/examplePius';
 import * as S from './styles';
 
 const FeedTemplate = () => {
+    const [id, setId] = useState(() => examplePius.length + 1);
     const [pius, setPius] = useState<IPiu[]>(examplePius);
     const [search, setSearch] = useState('');
 
-    // As funções de id, criar e deletar piu acabam sendo um pouco estranhas no momento,
-    // existir integração com o back
+    // As funções de criar e deletar piu acabam sendo um pouco estranhas no momento,
+    // já que não tem integração com o back
 
-    // const deletePiu = (piuId: number) => {
-    //     setPius(pius.filter((piu) => piu.id !== piuId));
-    // };
+    const deletePiu = (piuId: number) => {
+        setPius(pius.filter((piu) => piu.id !== piuId));
+    };
 
     const handleCreate = (text: string) => {
         setPius((oldArray) => [
             {
+                id,
                 user: loggedInUser,
                 text,
                 likes: 0,
@@ -32,6 +34,8 @@ const FeedTemplate = () => {
             },
             ...oldArray
         ]);
+
+        setId(id + 1);
     };
 
     return (
@@ -58,9 +62,9 @@ const FeedTemplate = () => {
                 />
                 {pius.map((piu) => (
                     <Piu
-                        key={`${piu.time.getTime()}-${piu.user.handle}`}
+                        key={piu.id}
                         piu={piu}
-                        setPius={setPius}
+                        deletePiu={deletePiu}
                         visible={[
                             piu.user.name,
                             piu.user.handle,

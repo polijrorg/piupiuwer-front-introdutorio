@@ -12,6 +12,7 @@ export const Container = styled.div`
     min-height: 100vh;
     flex-direction: column;
     background-color: ${({ theme }) => theme.colors.sky1};
+    align-items: center;
     justify-content: center;
 
     &::before {
@@ -23,6 +24,8 @@ export const Container = styled.div`
         height: 750px;
         border-radius: 50%;
         background: radial-gradient(rgba(0, 93, 133, 0.3), transparent 75%);
+        filter: blur(50px);
+        -webkit-filter: blur(50px);
         z-index: 0;
     }
 
@@ -35,6 +38,8 @@ export const Container = styled.div`
         height: 514px;
         border-radius: 50%;
         background: radial-gradient(rgba(0, 93, 133, 0.3), transparent 75%);
+        filter: blur(50px);
+        -webkit-filter: blur(50px);
         z-index: 0;
     }
 `;
@@ -55,7 +60,6 @@ export const SearchBarWrapper = styled.div`
 export const MainContainer = styled.div`
     min-height: 100vh;
     padding: 48px 0;
-    margin-left: 400px;
 
     display: flex;
     flex-direction: column;

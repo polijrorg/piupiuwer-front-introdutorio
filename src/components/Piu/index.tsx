@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import TimeAgo from 'javascript-time-ago';
 import pt from 'javascript-time-ago/locale/pt';
 
@@ -9,7 +9,7 @@ import * as S from './styles';
 
 interface PiuProps {
     piu: IPiu;
-    setPius: Dispatch<SetStateAction<IPiu[]>>;
+    deletePiu: (piuId: number) => void;
     visible: boolean;
 }
 
@@ -19,13 +19,14 @@ const timeAgo = new TimeAgo('');
 
 export const Piu: React.FC<PiuProps> = ({
     piu: {
+        id,
         user: { name, handle, image },
         text,
         likes,
         comments,
         time
     },
-    setPius,
+    deletePiu,
     visible
 }) => {
     const [like, setLike] = useState(false);
@@ -90,18 +91,7 @@ export const Piu: React.FC<PiuProps> = ({
                             />
                         </S.IconClicker>
                         {loggedInUser.handle === handle ? (
-                            <S.IconClicker
-                                onClick={() =>
-                                    setPius((pius) =>
-                                        pius.filter(
-                                            (piu) =>
-                                                piu.user.handle !== handle ||
-                                                piu.text !== text ||
-                                                piu.time !== time
-                                        )
-                                    )
-                                }
-                            >
+                            <S.IconClicker onClick={() => deletePiu(id)}>
                                 <S.Icon
                                     src="/assets/icons/Trash.svg"
                                     width="32px"

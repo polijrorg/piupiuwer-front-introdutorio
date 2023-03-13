@@ -4,6 +4,7 @@ import loggedInUser from './loggedInUser';
 
 export default [
     {
+        id: 2,
         user: {
             name: 'apenasbrum',
             handle: 'bruuuuuuuuuuuuuuuuuum',
@@ -15,6 +16,7 @@ export default [
         time: new Date('03-13-2023')
     },
     {
+        id: 1,
         user: loggedInUser,
         text: 'Mais uma sexta que passou e eu não fiquei lucio',
         likes: 434,
@@ -22,6 +24,7 @@ export default [
         time: new Date('03-12-2023')
     },
     {
+        id: 0,
         user: {
             name: 'Tiago Lucio',
             handle: 'lucioT',

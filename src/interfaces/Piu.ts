@@ -1,4 +1,5 @@
 export default interface Piu {
+    id: number;
     user: {
         name: string;
         handle: string;

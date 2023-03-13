@@ -8,7 +8,7 @@ const appearHeight = keyframes`
   }
 
   to {
-    max-height: 400px;
+    max-height: 700px;
 
   }
 `;
@@ -95,6 +95,9 @@ export const PiuText = styled.p`
     word-wrap: break-word;
     white-space: pre-line;
     overflow-wrap: break-word;
+
+    max-height: 500px;
+    overflow: auto;
 `;
 
 export const IconClicker = styled.button`
@@ -113,16 +116,13 @@ export const IconCounterWrapper = styled.div`
     display: flex;
     flex-direction: row;
     gap: 4px;
-
-    & > span {
-        font-family: 'Poppins Regular', sans-serif;
-        font-size: 20px;
-        color: ${({ theme }) => theme.colors.sky12};
-    }
 `;
 
 export const Amount = styled.span`
     width: 32px;
+    font-family: 'Poppins Regular', sans-serif;
+    font-size: 20px;
+    color: ${({ theme }) => theme.colors.sky12};
 `;
 
 export const IconBar = styled.div`
