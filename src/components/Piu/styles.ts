@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 
-export const Wrapper = styled.div`
+interface WrapperProps {
+    visible: boolean;
+}
+
+export const Wrapper = styled.div<WrapperProps>`
     width: 760px;
     background-color: ${({ theme }) => theme.colors.sky2};
     border-radius: 24px;
 
     padding: 16px 24px;
 
-    display: flex;
+    display: ${(props) => (props.visible ? 'flex' : 'none')};
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;

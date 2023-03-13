@@ -10,6 +10,7 @@ import * as S from './styles';
 interface PiuProps {
     piu: IPiu;
     setPius: Dispatch<SetStateAction<IPiu[]>>;
+    visible: boolean;
 }
 
 TimeAgo.addDefaultLocale(pt);
@@ -24,7 +25,8 @@ export const Piu: React.FC<PiuProps> = ({
         comments,
         time
     },
-    setPius
+    setPius,
+    visible
 }) => {
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
@@ -39,7 +41,7 @@ export const Piu: React.FC<PiuProps> = ({
     };
 
     return (
-        <S.Wrapper>
+        <S.Wrapper visible={visible}>
             <S.ImageWrapper>
                 <ProfileImage src={image} size="80px" />
             </S.ImageWrapper>

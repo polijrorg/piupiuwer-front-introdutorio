@@ -49,17 +49,22 @@ const FeedTemplate = () => {
                     image={loggedInUser.image}
                     handleCreate={handleCreate}
                 />
-                {pius
-                    .filter(({ user: { name, handle }, text }) =>
-                        [name, handle, text].reduce(
+                {pius.map((piu) => (
+                    <Piu
+                        key={`${piu.time.getTime()}-${piu.user.handle}`}
+                        piu={piu}
+                        setPius={setPius}
+                        visible={[
+                            piu.user.name,
+                            piu.user.handle,
+                            piu.text
+                        ].reduce(
                             (acc, cur) =>
                                 acc || cur.toLowerCase().includes(search),
                             false
-                        )
-                    )
-                    .map((piu) => (
-                        <Piu piu={piu} setPius={setPius} />
-                    ))}
+                        )}
+                    />
+                ))}
             </S.MainContainer>
             <UpButton />
         </S.Container>
