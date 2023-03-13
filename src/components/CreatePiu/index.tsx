@@ -7,23 +7,24 @@ import * as S from './styles';
 
 interface CreatePiuProps {
     image: string;
-    createPiu: (text: string) => void;
+    handleCreate: (text: string) => void;
 }
 
-export const CreatePiu: React.FC<CreatePiuProps> = ({ image, createPiu }) => {
+export const CreatePiu: React.FC<CreatePiuProps> = ({
+    image,
+    handleCreate
+}) => {
     const [piuText, setPiuText] = useState('');
-    const [characterCount, setCharacterCount] = useState(0);
+    const characterCount = piuText.length;
 
     // hook customizado para aumentar o tamanho do text area de maneira dinâmica
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     useAutosizeTextArea(textAreaRef.current, piuText);
 
-    function setTextAreaInput(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        const val = e.target.value;
-
-        setPiuText(val);
-        setCharacterCount(val.length);
-    }
+    const handleSend = () => {
+        setPiuText('');
+        handleCreate(piuText);
+    };
 
     return (
         <S.Wrapper>
@@ -36,7 +37,7 @@ export const CreatePiu: React.FC<CreatePiuProps> = ({ image, createPiu }) => {
                     rows={1}
                     value={piuText}
                     ref={textAreaRef}
-                    onChange={(e) => setTextAreaInput(e)}
+                    onChange={(e) => setPiuText(e.target.value)}
                 />
                 <S.BottomWrapper>
                     <S.CharacterCount error={characterCount > 140}>
@@ -45,7 +46,7 @@ export const CreatePiu: React.FC<CreatePiuProps> = ({ image, createPiu }) => {
                     <Button
                         text="PIAR"
                         disabled={characterCount === 0 || characterCount > 140}
-                        onClick={() => createPiu(piuText)}
+                        onClick={() => handleSend()}
                     />
                 </S.BottomWrapper>
             </S.RightWrapper>

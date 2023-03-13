@@ -1,56 +1,42 @@
-import Piu from 'components/Piu';
 import { useState } from 'react';
+
+import Piu from 'components/Piu';
 import Sidebar from 'components/Sidebar';
 import CreatePiu from 'components/CreatePiu';
 import UpButton from 'components/UpButton';
 
+import IPiu from 'interfaces/Piu';
+import loggedInUser from 'data/loggedInUser';
+import examplePius from 'data/examplePius';
 import * as S from './styles';
 
 const FeedTemplate = () => {
-    const [id, setId] = useState(1);
-
-    const [pius, setPius] = useState([
-        {
-            id: 0,
-            name: 'brum',
-            handle: '@beatrizbrum',
-            image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU',
-            text: 'Mais uma sexta que passou e eu não fiquei lucio',
-            likes: 434,
-            comments: 34,
-            time: 'há 2h atrás'
-        }
-    ]);
+    const [pius, setPius] = useState<IPiu[]>(examplePius);
+    const [search, setSearch] = useState('');
 
     // As funções de id, criar e deletar piu acabam sendo um pouco estranhas no momento,
     // existir integração com o back
 
-    const deletePiu = (piuId: number) => {
-        setPius(pius.filter((piu) => piu.id !== piuId));
-    };
+    // const deletePiu = (piuId: number) => {
+    //     setPius(pius.filter((piu) => piu.id !== piuId));
+    // };
 
-    const createPiu = (text: string) => {
-        if (text.length > 140) return;
+    const handleCreate = (text: string) => {
         setPius((oldArray) => [
             {
-                id,
-                name: 'cauan',
-                handle: '@caukazama',
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU',
+                user: loggedInUser,
                 text,
-                likes: 434,
-                comments: 34,
-                time: 'há 2h atrás'
+                likes: 0,
+                comments: 0,
+                time: new Date()
             },
             ...oldArray
         ]);
-
-        setId(id + 1);
     };
 
     return (
         <S.Container>
-            <Sidebar />
+            <Sidebar loggedInUser={loggedInUser} />
             <S.MainContainer>
                 <S.Title>Página Principal</S.Title>
                 <S.SearchBarWrapper>
@@ -59,25 +45,31 @@ const FeedTemplate = () => {
                         width="32px"
                         height="32px"
                     />
-                    <S.SearchBarInput placeholder="Buscar no Piupiuwer" />
+                    <S.SearchBarInput
+                        placeholder="Buscar no Piupiuwer"
+                        onChange={(e) =>
+                            setSearch(e.target.value.toLowerCase())
+                        }
+                    />
                 </S.SearchBarWrapper>
                 <CreatePiu
-                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU"
-                    createPiu={createPiu}
+                    image={loggedInUser.image}
+                    handleCreate={handleCreate}
                 />
                 {pius.map((piu) => (
                     <Piu
-                        // key deve ser usado sempre que existe um map, sendo passado um identificador único
-                        key={piu.id}
-                        id={piu.id}
-                        name={piu.name}
-                        handle={piu.handle}
-                        image={piu.image}
-                        text={piu.text}
-                        likes={piu.likes}
-                        comments={piu.comments}
-                        time={piu.time}
-                        deletePiu={deletePiu}
+                        key={`${piu.time.getTime()}-${piu.user.handle}`}
+                        piu={piu}
+                        setPius={setPius}
+                        visible={[
+                            piu.user.name,
+                            piu.user.handle,
+                            piu.text
+                        ].reduce(
+                            (acc, cur) =>
+                                acc || cur.toLowerCase().includes(search),
+                            false
+                        )}
                     />
                 ))}
             </S.MainContainer>

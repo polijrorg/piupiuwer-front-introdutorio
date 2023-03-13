@@ -42,14 +42,14 @@ export const BottomWrapper = styled.div`
 
 export const TextInput = styled.textarea`
     border: none;
-    overflow: auto;
+    overflow: hidden;
     outline: none;
 
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
 
-    resize: none; /*remove the resize handle on the bottom right*/
+    resize: none; // remove the resize handle on the bottom right
 
     min-height: 42px;
 

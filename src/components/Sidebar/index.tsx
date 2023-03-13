@@ -1,7 +1,14 @@
 import ProfileImage from 'components/ProfileImage';
+import User from 'interfaces/User';
 import * as S from './styles';
 
-export const Sidebar: React.FC = () => {
+interface SideBarProps {
+    loggedInUser: User;
+}
+
+export const Sidebar: React.FC<SideBarProps> = ({
+    loggedInUser: { name, handle, image }
+}) => {
     return (
         <S.Sidebar>
             <S.Icon src="/assets/icons/Logo.svg" height="92px" width="102px" />
@@ -12,7 +19,7 @@ export const Sidebar: React.FC = () => {
                         height="32px"
                         width="32px"
                     />
-                    <span>Página principal</span>
+                    <S.PageName>Página principal</S.PageName>
                 </S.MenuItem>
                 <S.MenuItem>
                     <S.Icon
@@ -20,7 +27,7 @@ export const Sidebar: React.FC = () => {
                         height="32px"
                         width="32px"
                     />
-                    <span>Explorar</span>
+                    <S.PageName>Explorar</S.PageName>
                 </S.MenuItem>
                 <S.MenuItem>
                     <S.Icon
@@ -28,7 +35,7 @@ export const Sidebar: React.FC = () => {
                         height="32px"
                         width="32px"
                     />
-                    <span>Mensagens</span>
+                    <S.PageName>Mensagens</S.PageName>
                 </S.MenuItem>
                 <S.MenuItem>
                     <S.Icon
@@ -36,16 +43,13 @@ export const Sidebar: React.FC = () => {
                         height="32px"
                         width="32px"
                     />
-                    <span>Itens Salvos</span>
+                    <S.PageName>Itens Salvos</S.PageName>
                 </S.MenuItem>
             </S.MenuWrapper>
             <S.ProfileWrapper>
-                <ProfileImage
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU"
-                    size="112px"
-                />
-                <S.ProfileName>Cauan Kazama</S.ProfileName>
-                <S.ProfileHandle>@caukazama</S.ProfileHandle>
+                <ProfileImage src={image} size="112px" />
+                <S.ProfileName>{name}</S.ProfileName>
+                <S.ProfileHandle>{`@${handle}`}</S.ProfileHandle>
                 <S.Icon
                     src="/assets/icons/LogOut.svg"
                     height="32px"

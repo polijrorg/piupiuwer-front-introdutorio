@@ -1,11 +1,12 @@
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from 'styles/default.theme';
-import { AuthProvider } from './useAuth';
 
-const AppProvider: React.FC = ({ children }) => (
-    <ThemeProvider theme={defaultTheme}>
-        <AuthProvider>{children}</AuthProvider>
-    </ThemeProvider>
-);
+interface AppProviderProps {
+    children: React.ReactNode;
+}
+
+const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
+    return <ThemeProvider theme={defaultTheme}>{children}</ThemeProvider>;
+};
 
 export default AppProvider;
