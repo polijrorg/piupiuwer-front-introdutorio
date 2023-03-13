@@ -12,5 +12,6 @@ export const ProfileImage = styled(Image)<ProfileImageStyledProps>`
     -webkit-box-sizing: border-box;
 
     border-radius: 50%;
-    border: solid 3px ${({ theme }) => theme.colors.sky11};
+    outline: solid 3px ${({ theme }) => theme.colors.sky11};
+    outline-offset: -3px;
 `;
