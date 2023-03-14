@@ -13,7 +13,7 @@ export default [
         text: 'eu faço crochê',
         likes: 1190,
         comments: 130,
-        time: new Date('03-13-2023')
+        time: new Date(2023, 2, 13)
     },
     {
         id: 1,
@@ -21,7 +21,7 @@ export default [
         text: 'Mais uma sexta que passou e eu não fiquei lucio',
         likes: 434,
         comments: 34,
-        time: new Date('03-12-2023')
+        time: new Date(2023, 2, 12)
     },
     {
         id: 0,
@@ -42,6 +42,6 @@ export default [
         repasse para o NTec bater as metas`,
         likes: 215,
         comments: 12,
-        time: new Date('03-10-2023')
+        time: new Date(2023, 2, 10)
     }
 ];
